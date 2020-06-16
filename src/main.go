@@ -16,11 +16,6 @@ import (
 )
 
 var (
-	dbUser = "root"
-	dbPass = "bigsister"
-	dbHost = "10.51.0.11"
-	dbPort = "3306"
-	dbName = "42seoul_db"
 	redis_ctx = context.Background()
 )
 
