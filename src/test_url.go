@@ -89,7 +89,9 @@ func (h *DataHandler) generateHashURL() *HashUrlData {
 	return hashURL
 }
 
-func (h *DataHandler) saveHashUrl(hashUrl *HashUrlData) error {
+
+
+func (h *DataHandler) saveHashUrl(hashUrl *HashUrlData, sourceIp string) error {
 	currTime := time.Now()
 	urlExpiresAt := time.Unix(hashUrl.ExpiresAt, 0)
 
@@ -102,8 +104,11 @@ func (h *DataHandler) saveHashUrl(hashUrl *HashUrlData) error {
 
 func (h *DataHandler) qrcodeGenHandler(ctx *gin.Context) {
 	hashURL := h.generateHashURL()
-	//generate QR CODE
-	err := h.saveHashUrl(hashURL) //save to redis, so we can use it later for verification
+	jwt, err := ctx.Request.Cookie("Authorization")
+	if err != nil {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"message": "Unauthorized Access. Please check the jwt"})
+	}
+	err := h.saveHashUrl(hashURL, ctx.Request.Header("X-FORWARDED-FOR")) //save to redis, so we can use it later for qrcode picture verification
 	ctx.JSON(http.StatusOK, gin.H{"message": hashURL})
 }
 
