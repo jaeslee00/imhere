@@ -1,0 +1,29 @@
+<html>
+<div class="log-form">
+    <h2>출근 가즈아ㅏㅏㅏㅏㅏㅏㅏ</h2>
+    <form id="TheForm" name="qrForm" method="POST" target="NewWindow">
+        <input type="text" name="username" placeholder="username"/>
+        <input type="password" name="password" placeholder="password"/>
+        <button onclick="onSubmit();">가즈아ㅏㅏㅏㅏㅏㅏ</button>
+    </form>
+</div>
+
+<script type="text/javascript">
+    function onSubmit(){
+        //var myForm = document.qrForm;
+        var myForm = document.getElementById('TheForm');
+        var url = "/qrcode";
+        console.log(myForm.username)
+        console.log(myForm.password)
+        myForm.action = url;
+        // myForm.method = "POST"
+        // myForm.target = "NewWindow"
+        window.open("" ,"NewWindow", "width=530,height=530");
+        myForm.submit();
+        return false;
+    }
+</script>
+
+</html>
+
+
